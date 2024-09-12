@@ -1,0 +1,7 @@
+{
+  "name": "habitApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
