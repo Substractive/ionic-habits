@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>My Habits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button id="open-modal">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-modal 
+  trigger="open-modal" 
+  [breakpoints]="[0, 0.3]" 
+  [initialBreakpoint]="0.3" 
+  #modal
+  >
+    <ng-template>
+      <ion-content>
+        <ion-item>
+          <ion-label position="stacked">Name your habit</ion-label>
+          <ion-input placeholder="Sleep before 10pm" [(ngModel)]="newHabitName"></ion-input>
+        </ion-item>
+        <ion-button (click)="addHabit()" expand="block">
+          Create Habit <ion-icon name="add-circle-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
