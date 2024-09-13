@@ -56,46 +56,64 @@ export class DatabaseService {
     return this.habits.asObservable();
   }
 
-  async addHabit(name: string){
+  async addHabit(name: string) {
     const query = `INSERT INTO habits (name) VALUES ('${name}')`;
     const result = await this.db.query(query);
 
     this.loadHabits();
-    if(!Capacitor.isNativePlatform()){
+    if (!Capacitor.isNativePlatform()) {
       // saveToStore when working on web because when you insert into DB it's actually only in memory. After refresh data is gone so this function call will store data in db file
       this.sqlite.saveToStore(DB_HABITS);
     }
     return result;
   }
 
-  async getHabitById(id: string){
+  async getHabitById(id: string) {
     const query = `SELECT * FROM habits WHERE id=${id}`;
     const result = await this.db.query(query);
     return result.values?.[0] || null;
   }
 
-  async updateHabitById(id:string, name: string){
+  async updateHabitById(id: string, name: string) {
     const query = `UPDATE habits SET name='${name}' WHERE id=${id}`;
     const result = await this.db.query(query);
 
     this.loadHabits();
-    if(!Capacitor.isNativePlatform()){
+    if (!Capacitor.isNativePlatform()) {
       // saveToStore when working on web because when you insert into DB it's actually only in memory. After refresh data is gone so this function call will store data in db file
       this.sqlite.saveToStore(DB_HABITS);
     }
     return result;
   }
 
-  async deleteHabitById(id:string){
+  async deleteHabitById(id: string) {
     const query = `DELETE FROM habits WHERE id=${id}`;
     const result = await this.db.query(query);
 
     this.loadHabits();
-    if(!Capacitor.isNativePlatform()){
+    if (!Capacitor.isNativePlatform()) {
       // saveToStore when working on web because when you insert into DB it's actually only in memory. After refresh data is gone so this function call will store data in db file
       this.sqlite.saveToStore(DB_HABITS);
     }
     return result;
+  }
+
+  async updateHabitReminderById(
+    id: string,
+    reminder_id: any,
+    reminder_hour: any,
+    reminder_minute: any
+  ) {
+    const query = `UPDATE habits SET reminder_id=${reminder_id}, reminder_hour=${reminder_hour}, reminder_minute=${reminder_minute} WHERE id=${id}`;
+    const result = await this.db.query(query);
+
+    this.loadHabits();
+
+    if (!Capacitor.isNativePlatform()) {
+      this.sqlite.saveToStore(DB_HABITS);
+    }
+
+    return result.values?.[0] || null;
   }
 
 

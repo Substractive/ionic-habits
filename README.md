@@ -7,6 +7,7 @@
 - copyfiles (check package.json scripts change)
 - @capacitor/splash-screen
 - @capacitor/local-notifications
+- date-fns
 
 
 ### Commands you need often

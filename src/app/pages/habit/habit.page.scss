@@ -1,0 +1,15 @@
+.reminder{
+    width: 100%;
+    &::part(native){
+        width: 100%;
+        background: var(--ion-color-secondary);
+        color: var(--ion-color-secondary-contrast);
+        border-radius: 0px;
+        padding: 12px;
+    }
+}
+
+// This is same as &::part(native), just different syntax
+/*ion-datetime-button::part(native){
+
+}*/

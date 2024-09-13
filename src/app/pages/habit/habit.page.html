@@ -14,14 +14,29 @@
       <ion-input [(ngModel)]="habit.name"></ion-input>
     </ion-item>
 
-    <ion-button
-    expand="full"
-    (click)="updateHabit()"
-    [disabled]="habit.name === ''"
-    >Update Habit</ion-button>
+    <ion-button expand="full" (click)="updateHabit()" [disabled]="habit.name === ''">Update Habit</ion-button>
 
     <ion-button expand="full" (click)="deleteHabit()" color="danger">Delete Habit</ion-button>
 
-    <ion-button expand="full" (click)="test()">Remind me</ion-button>
   </div>
+
+  <!-- keepContentsMounted is related to this datetime button. datetime attribute uses id from modal datetime for value -->
+  <ion-datetime-button *ngIf="!habit?.reminder_id" datetime="datetime" class="reminder">
+    <ion-label slot="time-target">Set Reminder</ion-label>
+  </ion-datetime-button>
+
+  <ion-item *ngIf="habit?.reminder_id">
+    <ion-label>Daily reminder at:</ion-label>
+    <!-- keepContentsMounted is related to this datetime button. datetime attribute uses id from modal datetime for value -->
+    <ion-datetime-button datetime="datetime" slot="end"></ion-datetime-button>
+  </ion-item>
+
+  <ion-button *ngIf="habit?.reminder_id" expand="full" color="tertiary" fill="clear" (click)="cancelNotifications()">
+    Remove Reminder</ion-button>
+
+  <ion-modal [keepContentsMounted]="true" (willDismiss)="onTimeSelected()">
+    <ng-template>
+      <ion-datetime presentation="time" id="datetime" locale="hr-HR" [(ngModel)]="selectedTime"></ion-datetime>
+    </ng-template>
+  </ion-modal>
 </ion-content>
