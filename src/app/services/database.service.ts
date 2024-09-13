@@ -67,4 +67,36 @@ export class DatabaseService {
     }
     return result;
   }
+
+  async getHabitById(id: string){
+    const query = `SELECT * FROM habits WHERE id=${id}`;
+    const result = await this.db.query(query);
+    return result.values?.[0] || null;
+  }
+
+  async updateHabitById(id:string, name: string){
+    const query = `UPDATE habits SET name='${name}' WHERE id=${id}`;
+    const result = await this.db.query(query);
+
+    this.loadHabits();
+    if(!Capacitor.isNativePlatform()){
+      // saveToStore when working on web because when you insert into DB it's actually only in memory. After refresh data is gone so this function call will store data in db file
+      this.sqlite.saveToStore(DB_HABITS);
+    }
+    return result;
+  }
+
+  async deleteHabitById(id:string){
+    const query = `DELETE FROM habits WHERE id=${id}`;
+    const result = await this.db.query(query);
+
+    this.loadHabits();
+    if(!Capacitor.isNativePlatform()){
+      // saveToStore when working on web because when you insert into DB it's actually only in memory. After refresh data is gone so this function call will store data in db file
+      this.sqlite.saveToStore(DB_HABITS);
+    }
+    return result;
+  }
+
+
 }

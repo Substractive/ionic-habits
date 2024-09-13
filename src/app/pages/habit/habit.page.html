@@ -1,13 +1,25 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>habit</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Habit</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">habit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div *ngIf="habit">
+    <ion-item>
+      <ion-label position="stacked">Name your habit</ion-label>
+      <ion-input [(ngModel)]="habit.name"></ion-input>
+    </ion-item>
+
+    <ion-button
+    expand="full"
+    (click)="updateHabit()"
+    [disabled]="habit.name === ''"
+    >Update Habit</ion-button>
+
+    <ion-button expand="full" (click)="deleteHabit()" color="danger">Delete Habit</ion-button>
+  </div>
 </ion-content>

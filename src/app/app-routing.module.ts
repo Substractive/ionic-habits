@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/overview/overview.module').then( m => m.OverviewPageModule)
   },
   {
-    path: 'habit',
+    path: 'habit/:id',
     loadChildren: () => import('./pages/habit/habit.module').then( m => m.HabitPageModule)
   },
 ];

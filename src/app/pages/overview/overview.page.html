@@ -5,6 +5,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <!-- async pipe for live reload of data when subscription gets updated -->
+  <ion-item *ngFor="let habit of habits | async"
+   [routerLink]="['habit',habit.id]">
+    <ion-label>
+      {{habit.name}}
+    </ion-label>
+  </ion-item>
+
+
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button id="open-modal">
       <ion-icon name="add"></ion-icon>

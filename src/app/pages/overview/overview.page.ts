@@ -16,10 +16,7 @@ export class OverviewPage implements OnInit {
   constructor(private database: DatabaseService) { }
 
   ngOnInit() {
-    this.habits.subscribe(res => {
-      console.log('NEW VALUE: ', res);
-      
-    })
+  
   }
 
   async addHabit(){
