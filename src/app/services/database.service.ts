@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { Capacitor } from '@capacitor/core';
 import { BehaviorSubject } from 'rxjs';
+import dbJson from './habit.json';
 
 const DB_HABITS = 'habitsdb';
 
@@ -30,9 +31,15 @@ export class DatabaseService {
 
     await this.db.open();
 
+    // Create DB from JSON
+    const jsonString = JSON.stringify(dbJson);
+    const isValid = await this.sqlite.isJsonValid(jsonString);
+    const result = await this.sqlite.importFromJson(jsonString);
+
     /**
      * DB SCHEMA
      */
+    /*
     const schema = `CREATE TABLE IF NOT EXISTS habits(
       id INTEGER PRIMARY KEY,
       name TEXT,
@@ -42,6 +49,7 @@ export class DatabaseService {
     );`;
 
     await this.db.execute(schema);
+    */
 
     this.loadHabits();
     return true;

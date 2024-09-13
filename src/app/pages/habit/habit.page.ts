@@ -54,7 +54,7 @@ export class HabitPage implements OnInit {
     await LocalNotifications.requestPermissions();
 
     // cancel previous notification if exists
-    if(this.habit?.reminder_id){
+    if (this.habit?.reminder_id) {
       await this.cancelNotifications();
     }
 
@@ -75,13 +75,13 @@ export class HabitPage implements OnInit {
             repeats: true, // repeat every day or something?
             on: {
               hour,
-              minute
+              minute,
             },
             allowWhileIdle: true
-          }
+          },
           //  schedule: { at: new Date(Date.now() + 1000 * 3)}
-        }
-      ]
+        },
+      ],
     });
 
     console.log(res);

@@ -1,0 +1,56 @@
+{
+    "database": "habitsdb",
+    "version": 1,
+    "encrypted": false,
+    "mode": "full",
+    "tables": [
+        {
+            "name": "habits",
+            "schema": [
+                {
+                    "column": "id",
+                    "value": "INTEGER PRIMARY KEY NOT NULL"
+                },
+                {
+                    "column": "name",
+                    "value": "TEXT NOT NULL"
+                },
+                {
+                    "column": "reminder_id",
+                    "value": "TEXT"
+                },
+                {
+                    "column": "reminder_hour",
+                    "value": "TEXT"
+                },
+                {
+                    "column": "reminder_minute",
+                    "value": "TEXT"
+                }
+            ],
+            "values": [
+                [
+                    1,
+                    "Drink coffee",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    2,
+                    "Go to sleep",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    3,
+                    "Code a bit",
+                    null,
+                    null,
+                    null
+                ]
+            ]
+        }
+    ]
+}
