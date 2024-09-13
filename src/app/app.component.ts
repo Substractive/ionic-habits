@@ -3,6 +3,8 @@ import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from '@capacito
 import { Capacitor } from '@capacitor/core';
 import { DatabaseService } from './services/database.service';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { ActionPerformed, LocalNotifications, LocalNotificationSchema } from '@capacitor/local-notifications';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +14,13 @@ import { SplashScreen } from '@capacitor/splash-screen';
 export class AppComponent {
   isWeb = false;
 
-  constructor(private database: DatabaseService) {
+  constructor(private database: DatabaseService, private navCtrl: NavController) {
     this.initApp();
+    this.setupNotificationListener();
   }
 
-  async initApp(){
-    if(!Capacitor.isNativePlatform()){
+  async initApp() {
+    if (!Capacitor.isNativePlatform()) {
       this.isWeb = true;
       const res = await customElements.whenDefined('jeep-sqlite');
     }
@@ -25,8 +28,30 @@ export class AppComponent {
     await this.database.initializePlugin();
 
     console.log('APP READY');
-    
+
     SplashScreen.hide();
+  }
+
+  setupNotificationListener() {
+    LocalNotifications.addListener(
+      'localNotificationReceived',
+      (notification: LocalNotificationSchema) => {
+        console.log('RECIEVED: ', notification);
+
+      }
+    );
+
+    LocalNotifications.addListener(
+      'localNotificationActionPerformed',
+      (action: ActionPerformed) => {
+        console.log('PERFORMED: ', action);
+        const habitID = action.notification.extra.data.id;
+        console.log('ID: ', habitID);
+        this.navCtrl.navigateForward(`habit/${habitID}`);
+
+      }
+    );
+
   }
 
 }

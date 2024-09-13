@@ -6,6 +6,7 @@
 - jeep-sqlite@latest (sqlite in browser)
 - copyfiles (check package.json scripts change)
 - @capacitor/splash-screen
+- @capacitor/local-notifications
 
 
 ### Commands you need often
